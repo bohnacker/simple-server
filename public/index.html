@@ -1,42 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>simple-survey-server</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/style.css">
-  </head>
-  <body>
-    <header>
-      <h1>
-        Simple Survey Example
-      </h1>
-    </header>
 
-    <main>
-      <p>Add a new survey:</p>
-      <form>
-        <input id="name" type="text" maxlength="50" placeholder="Firstname Lastname">
-        <input id="answer" type="text" maxlength="200" placeholder="Your Answer">
-        <input id="color" type="color">
-        <button type="submit">Submit</button>
-      </form>
-      <p>Surveys:</p>
-      <section class="surveys">
-        <ul id="surveys">
-        </ul>
-      </section>
-      <p><a href="/clear">Clear</a></p>
-    </main>
+<head>
+  <title>simple-message-server</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/style.css">
+  <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/pretty-print-json@1.0/dist/pretty-print-json.css>
+  <script src=https://cdn.jsdelivr.net/npm/pretty-print-json@1.0/dist/pretty-print-json.min.js></script>
+</head>
 
-    <script src="https://button.glitch.me/button.js" data-style="glitch"></script>
-    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+<body>
+  <header>
+    <h1>
+      Simple Message Server
+    </h1>
+  </header>
 
-    <!-- Your web-app is https, so your scripts need to be too -->
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
-            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
-            crossorigin="anonymous"></script>
-    <script src="/client.js"></script>
-  </body>
+  <main>
+    <p>Database content:</p>
+    <section class="state">
+
+    </section>
+    <p>
+      <button id="button-clear">Clear</button>
+    </p>
+  </main>
+
+  <!-- Your web-app is https, so your scripts need to be too -->
+  <script src="https://code.jquery.com/jquery-2.2.1.min.js" integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=" crossorigin="anonymous"></script>
+  <script src="/client.js"></script>
+</body>
+
 </html>

@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 
 // setup webserver
 const app = express();
@@ -9,7 +9,7 @@ const server = app.listen(process.env.PORT || 3000, () => {
 });
 app.use(express.static('public'));
 app.use(cors());
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 // setup database
 // Security note: the database is saved to the file `db.json` on the local filesystem.
@@ -20,31 +20,53 @@ const adapter = new FileSync('.data/db.json');
 const db = low(adapter);
 
 // set default data
-db.defaults({ surveys: [] }).write();
+db.defaults({}).write();
 
-// get all surveys
-app.get("/surveys", function (request, response) {
-  response.json(db.get('surveys'));
+// get complete database
+app.get("/--state", function (request, response) {
+  response.json(db.getState());
 });
 
-// creates a new entry in the surveys collection with the submitted values
-app.post("/surveys", function (request, response) {
-  console.log(request.query);
-  db.get("surveys")
-    .push({
-      name: request.query.name,
-      answer: request.query.answer,
-      color: request.query.color,
-    })
-    .write();
-  console.log("New survey inserted");
+// clear messages
+app.get("/--clear", function (request, response) {
+  db.setState({}).write();
   response.sendStatus(200);
 });
 
-// clear surveys
-app.get("/clear", function (request, response) {
-  db.get("surveys")
-    .remove()
+// get all messages
+app.get("/*", function (request, response) {
+  // console.log("get messages")
+  // console.log(request.path)
+  // console.log(request.query)
+
+  let channel = request.path.slice(1);
+  // console.log(db.get(channel));
+
+  if (db.has(channel).value()) {
+    response.json(db.get(channel));
+  } else {
+    response.json([]);
+  }
+
+});
+
+// creates a new entry in the messages collection with the submitted values
+app.post("/*", function (request, response) {
+  console.log("post message")
+  console.log(request.path)
+  console.log(request.query);
+
+  let channel = request.path.slice(1);
+
+  // if this channel is not defined, add an empty array
+  if (!db.has(channel).value()) {
+    db.set(channel, []).write();
+  }
+
+  db.get(channel)
+    .push(request.query)
     .write();
-  response.send("Database cleared");
+
+  // console.log("New message inserted");
+  response.sendStatus(200);
 });
