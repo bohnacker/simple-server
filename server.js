@@ -33,6 +33,19 @@ app.get("/--clear", function (request, response) {
   response.sendStatus(200);
 });
 
+// clear messages from one channel
+app.get("/*/clear", function (request, response) {
+  let channel = request.path.slice(1, -6);
+
+  console.log("clear channel", channel);
+
+  if (db.has(channel).value()) {
+    db.get(channel).remove().write();
+  }
+
+  response.sendStatus(200);
+});
+
 // get all messages
 app.get("/*", function (request, response) {
   // console.log("get messages")
