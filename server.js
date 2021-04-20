@@ -76,6 +76,10 @@ app.post("/*", function (request, response) {
     db.set(channel, []).write();
   }
 
+  if (!request.query.timestamp) {
+    request.query.timestamp = Date.now();
+  }
+
   db.get(channel)
     .push(request.query)
     .write();
