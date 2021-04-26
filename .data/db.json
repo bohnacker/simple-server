@@ -1,29 +1,3 @@
 {
-  "test": [
-    {
-      "user": "Hartmut",
-      "message": "asdf",
-      "timestamp": 1619011729399
-    },
-    {
-      "user": "Hartmut",
-      "message": "asdf",
-      "timestamp": 1619011733188
-    },
-    {
-      "user": "Hartmut",
-      "message": "agagag",
-      "timestamp": 1619011735086
-    },
-    {
-      "user": "Hartmut",
-      "message": "afafaf",
-      "timestamp": 1619011767679
-    },
-    {
-      "user": "Hartmut",
-      "message": "asdfasdf",
-      "timestamp": 1619164537941
-    }
-  ]
+  
 }
