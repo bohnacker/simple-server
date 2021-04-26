@@ -1,3 +1,16 @@
 {
-  
+  "typetogether": [
+    {
+      "key": "d",
+      "color": "hsl(273, 80%, 60%)",
+      "timestamp": 1619441368655,
+      "id": "CS1AXAgBFF8hboOwjqJRy"
+    },
+    {
+      "key": "f",
+      "color": "hsl(273, 80%, 60%)",
+      "timestamp": 1619441368875,
+      "id": "AkODzi98cUpxY4qbjz2kD"
+    }
+  ]
 }

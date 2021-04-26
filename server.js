@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const { nanoid } = require('nanoid');
+
 // const bodyParser = require('body-parser');
 
 // setup webserver
@@ -46,6 +48,24 @@ app.get("/*/clear", function (request, response) {
   response.sendStatus(200);
 });
 
+// delete message from one channel
+app.get("/*/delete", function (request, response) {
+  let channel = request.path.slice(1, -7);
+
+  console.log("delete message from channel " + channel);
+  console.log(request.query);
+
+  if (db.has(channel).value()) {
+    let msg = db.get(channel).find(request.query).value();
+    console.log("found message to delete:");
+    console.log(msg);
+
+    db.get(channel).remove(request.query).write();
+  }
+  
+  response.sendStatus(200);
+});
+
 // get all messages
 app.get("/*", function (request, response) {
   // console.log("get messages")
@@ -83,6 +103,10 @@ app.post("/*", function (request, response) {
 
   if (!request.query.timestamp) {
     request.query.timestamp = Date.now();
+  }
+
+  if (!request.query.id) {
+    request.query.id = nanoid();
   }
 
   db.get(channel)
