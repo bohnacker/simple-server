@@ -56,7 +56,12 @@ app.get("/*", function (request, response) {
   // console.log(db.get(channel));
 
   if (db.has(channel).value()) {
-    response.json(db.get(channel));
+    let result = db.get(channel).value();
+    if (request.query.since) {
+      let since = parseInt(request.query.since);
+      result = result.filter((el) => el.timestamp > since);
+    }
+    response.json(result);
   } else {
     response.json([]);
   }
