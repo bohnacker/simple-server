@@ -56,7 +56,7 @@ app.get("/*/delete", function (request, response) {
   console.log(request.query);
 
   if (db.has(channel).value()) {
-    let msg = db.get(channel).find(request.query).value();
+    let msg = db.get(channel).filter(request.query).value();
     console.log("found message to delete:");
     console.log(msg);
 
@@ -66,21 +66,26 @@ app.get("/*/delete", function (request, response) {
   response.sendStatus(200);
 });
 
-// get all messages
+// get messages
 app.get("/*", function (request, response) {
   // console.log("get messages")
   // console.log(request.path)
-  // console.log(request.query)
+  console.log(request.query)
 
   let channel = request.path.slice(1);
   // console.log(db.get(channel));
 
   if (db.has(channel).value()) {
     let result = db.get(channel).value();
+
     if (request.query.since) {
       let since = parseInt(request.query.since);
       result = result.filter((el) => el.timestamp > since);
+
+    } else if (Object.keys(request.query).length > 0) {
+      result = db.get(channel).filter(request.query).value();
     }
+
     response.json(result);
   } else {
     response.json([]);
